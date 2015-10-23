@@ -50,4 +50,9 @@ Executing the default `gulp` command will:
 ```bash
 gulp test.watch
 ```
-Executing `gulp test.watch` will run the test suites, then watch for changes to the source files, and re-run the tests whenever the sources are modified. For a single test run without auto-watch, execute `gulp test`.
+Executing `gulp test.watch` will:
+- Run the test suites
+- Watch for changes to the source files
+- Re-run the tests whenever the sources are modified
+
+For a single test run without auto-watch, execute `gulp test` instead.
