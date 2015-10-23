@@ -12,8 +12,8 @@ export class Root extends Component {
     return (
       <Router history={createBrowserHistory()}>
         <Route path="/" component={App} onEnter={authRouteResolver}>
-          <Route path="sign-in" component={SignIn}/>
-          <Route path="tasks" component={Tasks}/>
+          <Route path="/sign-in" component={SignIn}/>
+          <Route path="/tasks" component={Tasks}/>
         </Route>
       </Router>
     );

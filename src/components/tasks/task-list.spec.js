@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { List } from 'immutable';
 import { scryRenderedComponentsWithType }  from 'react-addons-test-utils';
-import { createTestComponent } from 'utils/test';
+import { createTestComponent } from 'test/utils';
 import { TaskList } from './task-list';
 import { TaskItem } from './task-item';
 

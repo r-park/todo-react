@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 import { expect } from 'chai';
 import { Simulate } from 'react-addons-test-utils';
-import { createTestComponent } from 'utils/test';
+import { createTestComponent } from 'test/utils';
 import { TaskItem } from './task-item';
 
 

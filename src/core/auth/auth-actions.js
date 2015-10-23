@@ -3,7 +3,7 @@ import { firebaseRef } from 'core/firebase';
 
 function authenticate(provider) {
   firebaseRef.authWithOAuthPopup(provider, error => {
-    if (error) console.log('ERROR @ AuthActions#authenticate :', error); // eslint-disable-line no-console
+    if (error) console.error('ERROR @ AuthActions#authenticate :', error); // eslint-disable-line no-console
   });
 }
 

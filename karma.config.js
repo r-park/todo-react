@@ -1,7 +1,5 @@
 module.exports = function(config) {
   var options = {
-    basePath: '',
-
     frameworks: ['mocha'],
 
     files: [
@@ -33,10 +31,6 @@ module.exports = function(config) {
         warning: 'yellow'
       }
     },
-
-    port: 9876,
-
-    colors: true,
 
     // config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,

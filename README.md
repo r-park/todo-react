@@ -4,7 +4,7 @@
 # Todo app with React and Firebase
 - React
 - React-Router
-- Firebase
+- Firebase with OAuth
 - Immutable
 - ES6
 - SASS

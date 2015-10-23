@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { Simulate } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
-import { createTestComponent } from 'utils/test';
+import { createTestComponent } from 'test/utils';
 import { TaskForm } from './task-form';
 
 
