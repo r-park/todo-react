@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import Firebase from 'Firebase';
+import Firebase from 'firebase';
 import { Task } from './task';
 
 
