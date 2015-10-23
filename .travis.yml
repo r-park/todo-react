@@ -16,7 +16,6 @@ script:
   - ./scripts/dist.sh
 
 after_success:
-  - ./scripts/coveralls.sh
   - ./scripts/deploy.sh
 
 notifications:
