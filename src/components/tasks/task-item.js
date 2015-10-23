@@ -37,10 +37,14 @@ export class TaskItem extends Component {
 
   saveTitle(event) {
     if (this.state.editing) {
+      const { task } = this.props;
+      const title = event.target.value.trim();
+
+      if (title.length && title !== task.title) {
+        this.props.updateTask(task, {title});
+      }
+
       this.stopEditing();
-      this.props.updateTask(this.props.task, {
-        title: event.target.value
-      });
     }
   }
 
@@ -80,6 +84,7 @@ export class TaskItem extends Component {
         autoFocus
         className="task-item__input"
         defaultValue={task.title}
+        maxLength="64"
         onBlur={this.saveTitle}
         onKeyUp={this.onKeyUp}
         ref="titleInput"

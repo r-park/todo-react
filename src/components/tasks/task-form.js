@@ -36,7 +36,8 @@ export class TaskForm extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-    this.props.createTask(this.state.title);
+    const title = this.state.title.trim();
+    if (title.length) this.props.createTask(title);
     this.clearInput();
   }
 
@@ -47,6 +48,7 @@ export class TaskForm extends Component {
           autoComplete="off"
           autoFocus
           className="task-form__input"
+          maxLength="64"
           onChange={this.onChange}
           onKeyUp={this.onKeyUp}
           placeholder="What needs to be done?"
