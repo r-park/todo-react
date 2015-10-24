@@ -4,12 +4,18 @@
 # Todo app with React and Firebase
 - React
 - React-Router
-- Firebase with OAuth
+- Firebase
+  - JSON Datastore
+  - OAuth authentication
+  - Hosting
 - Immutable
-- ES6
+- Babel
+  - Transpiles ES6
+  - react-transform-hmr for hot reloading
 - SASS
 - Webpack
 
+## Live demo
 Try the demo at <a href="https://todo-react.firebaseapp.com" target="_blank">todo-react.firebaseapp.com</a>
 
 ## Installing dependencies
