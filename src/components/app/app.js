@@ -19,20 +19,16 @@ export class App extends Component {
           <div className="g-row">
             <div className="g-col">
               <h1 className="header__title">Todo React</h1>
-              <a className="header__link" href="https://github.com/r-park/todo-react"></a>
+
+              <ul className="header__links">
+                {authenticated ? <li><a className="header__link" onClick={signOut} href="javascript:">Sign out</a></li> : null}
+                <li><a className="header__link header__link--github" href="https://github.com/r-park/todo-react-redux"></a></li>
+              </ul>
             </div>
           </div>
         </header>
 
         <main className="main">{children}</main>
-
-        <footer className="footer">
-          <div className="g-row">
-            <div className="g-col">
-              {authenticated ? <a onClick={signOut} href="javascript:">Sign out</a> : null}
-            </div>
-          </div>
-        </footer>
       </div>
     );
   }
