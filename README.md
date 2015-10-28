@@ -2,8 +2,8 @@
 
 
 # Todo app with React and Firebase
-- React
-- React-Router
+- React `~0.14.0`
+- React-Router `1.0.0-rc3`
 - Firebase
   - JSON Datastore
   - OAuth authentication
@@ -11,7 +11,9 @@
 - Immutable
 - Babel
   - Transpiles ES6
-  - react-transform-hmr for hot reloading
+  - Hot-reloading with `babel-plugin-react-transform`
+- BrowserSync
+- Gulp `4.0.0-alpha.1`
 - SASS
 - Webpack
 
@@ -23,15 +25,13 @@ Try the demo at <a href="https://todo-react.firebaseapp.com" target="_blank">tod
 npm install
 ```
 
-#### Gulp v4
-The gulp tasks for this project require gulp v4-alpha. If you don't wish to globally install the v4 gulp-cli, you can run the gulp tasks using the locally installed gulp. For example:
-```bash
-./node_modules/.bin/gulp run
-```
-
-#### Installing Gulp v4 (optional)
+#### Gulp v4 (optional)
 ```bash
 npm install -g gulpjs/gulp-cli#4.0
+```
+The gulp tasks for this project require gulp v4-alpha. If you don't wish to globally install the v4 gulp-cli, you can run the gulp tasks using the locally installed gulp under `./node_modules/.bin` — for example:
+```bash
+./node_modules/.bin/gulp run
 ```
 
 ## Running the app
