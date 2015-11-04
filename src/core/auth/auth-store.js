@@ -14,7 +14,11 @@ export class AuthStore {
   }
 
   get authenticated() {
-    return this.authData !== null;
+    return this.authData !== null && !this.expired;
+  }
+
+  get expired() {
+    return !this.authData || (this.authData.expires * 1000) < Date.now();
   }
 
   get state() {
