@@ -2,8 +2,8 @@
 
 
 # Todo app with React and Firebase
-- React `~0.14.0`
-- React-Router `1.0.0-rc3`
+- React `~0.14.2`
+- React-Router `1.0.0-rc4`
 - Firebase
   - JSON Datastore
   - OAuth authentication
