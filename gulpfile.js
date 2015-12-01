@@ -1,20 +1,13 @@
-var autoprefixer = require('autoprefixer'),
-    browserSync  = require('browser-sync'),
-    coveralls    = require('gulp-coveralls'),
-    del          = require('del'),
-    eslint       = require('gulp-eslint'),
-    gulp         = require('gulp'),
-    gutil        = require('gulp-util'),
-    header       = require('gulp-header'),
-    historyApi   = require('connect-history-api-fallback'),
-    inject       = require('gulp-inject'),
-    karma        = require('karma'),
-    path         = require('path'),
-    postcss      = require('gulp-postcss'),
-    sass         = require('gulp-sass'),
-    webpack      = require('webpack'),
-    webpackDev   = require('webpack-dev-middleware'),
-    webpackHot   = require('webpack-hot-middleware');
+var coveralls     = require('gulp-coveralls'),
+    del           = require('del'),
+    eslint        = require('gulp-eslint'),
+    gulp          = require('gulp'),
+    gutil         = require('gulp-util'),
+    header        = require('gulp-header'),
+    karma         = require('karma'),
+    path          = require('path'),
+    webpack       = require('webpack'),
+    WebpackServer = require('webpack-dev-server');
 
 
 /*=========================================================
@@ -22,6 +15,7 @@ var autoprefixer = require('autoprefixer'),
 ---------------------------------------------------------*/
 var paths = {
   src: {
+    root: 'src',
     html: 'src/**/*.html',
     js: 'src/**/*.js',
     sass: 'src/styles/**/*.scss'
@@ -35,21 +29,6 @@ var paths = {
   CONFIG
 ---------------------------------------------------------*/
 var config = {
-  autoprefixer: {
-    browsers: ['last 3 versions', 'Firefox ESR', 'Opera 12.1']
-  },
-
-  browserSync: {
-    files: [paths.target + '/**/!(*.js)'],
-    notify: false,
-    open: false,
-    port: 7000,
-    reloadDelay: 1200,
-    server: {
-      baseDir: paths.target
-    }
-  },
-
   coveralls: {
     src: 'tmp/coverage/**/lcov.info'
   },
@@ -59,27 +38,12 @@ var config = {
   },
 
   header: {
-    src: paths.target + '/*.{css,js}',
+    src: paths.target + '/{main.js,styles.css}',
     template: '/* <%= name %> v<%= version %> - <%= date %> - <%= url %> */\n'
-  },
-
-  inject: {
-    src: 'target/index.html',
-    includes: [
-      'target/vendor.js'
-    ],
-    options: {relative: true}
   },
 
   karma: {
     configFile: path.resolve('./karma.config.js')
-  },
-
-  sass: {
-    errLogToConsole: true,
-    outputStyle: 'nested',
-    precision: 10,
-    sourceComments: false
   },
 
   webpack: {
@@ -119,21 +83,11 @@ gulp.task('headers', function(){
 });
 
 
-gulp.task('inject', function(){
-  return gulp.src(config.inject.src)
-    .pipe(inject(
-      gulp.src(config.inject.includes, {read: false}),
-      config.inject.options
-    ))
-    .pipe(gulp.dest(paths.target));
-});
-
-
 gulp.task('js', function(done){
   var conf = require(config.webpack.prod);
   webpack(conf).run(function(error, stats){
     if (error) throw new gutil.PluginError('webpack', error);
-    gutil.log(stats.toString(config.webpack.stats));
+    gutil.log(stats.toString(conf.stats));
     done();
   });
 });
@@ -147,16 +101,6 @@ gulp.task('lint', function(){
 });
 
 
-gulp.task('sass', function(){
-  return gulp.src(paths.src.sass)
-    .pipe(sass(config.sass))
-    .pipe(postcss([
-      autoprefixer(config.autoprefixer)
-    ]))
-    .pipe(gulp.dest(paths.target));
-});
-
-
 gulp.task('serve', function(done){
   config.browserSync.server.middleware = [
     historyApi()
@@ -167,42 +111,31 @@ gulp.task('serve', function(done){
 });
 
 
-gulp.task('serve.dev', function(done){
+gulp.task('serve', function(done){
   var conf = require(config.webpack.dev);
-  var bundler = webpack(conf);
+  var compiler = webpack(conf);
 
-  config.browserSync.server.middleware = [
-    webpackDev(bundler, {stats: conf.stats}),
-    webpackHot(bundler),
-    historyApi()
-  ];
+  var server = new WebpackServer(compiler, {
+    contentBase: paths.src.root,
+    historyApiFallback: true,
+    hot: true,
+    publicPath: conf.output.publicPath,
+    stats: conf.stats
+  });
 
-  browserSync.create()
-    .init(config.browserSync, done);
+  server.listen(3000, 'localhost', function(){
+    gutil.log(gutil.colors.gray('-------------------------------------------'));
+    gutil.log('WebpackDevServer:', gutil.colors.magenta('http://localhost:3000'));
+    gutil.log(gutil.colors.gray('-------------------------------------------'));
+    done();
+  });
 });
-
-
-/*===========================
-  BUILD
----------------------------*/
-gulp.task('build', gulp.series(
-  'clean.target',
-  'copy.html',
-  'sass'
-));
 
 
 /*===========================
   DEVELOP
 ---------------------------*/
-gulp.task('default', gulp.series(
-  'build',
-  'serve.dev',
-  function watch(){
-    gulp.watch(paths.src.html, gulp.task('copy.html'));
-    gulp.watch(paths.src.sass, gulp.task('sass'));
-  }
-));
+gulp.task('default', gulp.parallel('serve'));
 
 
 /*===========================
@@ -231,10 +164,11 @@ gulp.task('test.watch', function(done){
 /*===========================
   RELEASE
 ---------------------------*/
-gulp.task('dist', gulp.series('lint', 'test', 'build', 'js', 'inject', 'headers'));
-
-
-/*===========================
-  RUN
----------------------------*/
-gulp.task('run', gulp.series('build', 'serve.dev'));
+gulp.task('dist', gulp.series(
+  'lint',
+  'test',
+  'clean.target',
+  'copy.html',
+  'js',
+  'headers'
+));

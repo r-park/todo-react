@@ -2,28 +2,25 @@
 
 
 # Todo app with React and Firebase
-- React `~0.14.2`
-- React-Router `1.0.0-rc4`
-- Firebase
-  - JSON Datastore
-  - OAuth authentication
-  - Hosting
-- Immutable
+A simple Todo app example using React, Redux, and Firebase with OAuth authentication. Try the demo at <a href="https://todo-react.firebaseapp.com" target="_blank">todo-react.firebaseapp.com</a>.
+
+- React `~0.14.3`
+- React-Router `1.0.0`
 - Babel
-  - Transpiles ES6
-  - Hot-reloading with `babel-plugin-react-transform`
-- BrowserSync
-- Gulp `4.0.0-alpha.1`
+- ES6
+- Firebase w/ OAuth
+- Gulp `4.0.0-alpha.2`
+- Immutable
 - SASS
 - Webpack
+- Webpack Dev Server
 
-## Live demo
-Try the demo at <a href="https://todo-react.firebaseapp.com" target="_blank">todo-react.firebaseapp.com</a>
 
 ## Installing dependencies
 ```bash
 npm install
 ```
+
 
 #### Gulp v4 (optional)
 ```bash
@@ -34,13 +31,6 @@ The gulp tasks for this project require gulp v4-alpha. If you don't wish to glob
 ./node_modules/.bin/gulp run
 ```
 
-## Running the app
-```bash
-gulp run
-```
-Executing `gulp run` will:
-- Build the project
-- Start the server at <a href="http://localhost:7000" target="_blank">localhost:7000</a>
 
 ## Developing
 ```bash
@@ -48,9 +38,10 @@ gulp
 ```
 Executing the default `gulp` command will:
 - Build the project
-- Start the server at <a href="http://localhost:7000" target="_blank">localhost:7000</a>
+- Start the server at <a href="http://localhost:3000" target="_blank">localhost:3000</a>
 - Watch for changes to the source files and process changes
 - Live-reload the browser
+
 
 ## Testing
 ```bash

@@ -9,22 +9,16 @@ module.exports = {
     firebase: 'MockFirebase'
   },
 
-  module: {
-    loaders: [
-      { exclude: /node_modules/, loader: 'babel', test: /\.js$/ }
-    ]
-  },
-
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('test')
-    })
-  ],
-
   resolve: {
     alias: {
       test: path.resolve('./test')
     },
     root: path.resolve('./src')
+  },
+
+  module: {
+    loaders: [
+      {test: /\.js$/, exclude: /node_modules/, loader: 'babel'}
+    ]
   }
 };
