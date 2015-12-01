@@ -4,7 +4,10 @@
   "description": "Todo app with React and Firebase",
   "homepage": "https://github.com/r-park/todo-react",
   "repository": "https://github.com/r-park/todo-react.git",
-  "author": "Richard Park",
+  "author": {
+    "name" : "Richard Park",
+    "email" : "objectiv@gmail.com"
+  },
   "license": "MIT",
   "private": true,
   "scripts": {
