@@ -1,10 +1,12 @@
 'use strict';
 
+const browserSync   = require('browser-sync');
 const del           = require('del');
 const eslint        = require('gulp-eslint');
 const gulp          = require('gulp');
 const gutil         = require('gulp-util');
 const header        = require('gulp-header');
+const historyApi    = require('connect-history-api-fallback');
 const karma         = require('karma');
 const path          = require('path');
 const webpack       = require('webpack');
