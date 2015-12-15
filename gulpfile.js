@@ -47,8 +47,8 @@ var config = {
   },
 
   webpack: {
-    dev: './webpack.config.dev',
-    prod: './webpack.config.prod'
+    dev: './webpack.dev',
+    dist: './webpack.dist'
   }
 };
 
@@ -84,7 +84,7 @@ gulp.task('headers', function(){
 
 
 gulp.task('js', function(done){
-  var conf = require(config.webpack.prod);
+  var conf = require(config.webpack.dist);
   webpack(conf).run(function(error, stats){
     if (error) throw new gutil.PluginError('webpack', error);
     gutil.log(stats.toString(conf.stats));
@@ -102,26 +102,17 @@ gulp.task('lint', function(){
 
 
 gulp.task('serve', function(done){
-  config.browserSync.server.middleware = [
-    historyApi()
-  ];
-
+  config.browserSync.server.middleware = [historyApi()];
   browserSync.create()
     .init(config.browserSync, done);
 });
 
 
-gulp.task('serve', function(done){
+gulp.task('serve.dev', function(done){
   var conf = require(config.webpack.dev);
   var compiler = webpack(conf);
 
-  var server = new WebpackServer(compiler, {
-    contentBase: paths.src.root,
-    historyApiFallback: true,
-    hot: true,
-    publicPath: conf.output.publicPath,
-    stats: conf.stats
-  });
+  var server = new WebpackServer(compiler, conf.devServer);
 
   server.listen(3000, 'localhost', function(){
     gutil.log(gutil.colors.gray('-------------------------------------------'));
@@ -135,7 +126,7 @@ gulp.task('serve', function(done){
 /*===========================
   DEVELOP
 ---------------------------*/
-gulp.task('default', gulp.parallel('serve'));
+gulp.task('default', gulp.task('serve.dev'));
 
 
 /*===========================

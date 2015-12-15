@@ -1,12 +1,17 @@
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
+
+// plugins
+const HotModuleReplacementPlugin = webpack.HotModuleReplacementPlugin;
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const OccurenceOrderPlugin = webpack.optimize.OccurenceOrderPlugin;
+const NoErrorsPlugin = webpack.NoErrorsPlugin;
 
 
 module.exports = {
   cache: true,
   debug: true,
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map',
 
   entry: {
     main: [
@@ -43,7 +48,7 @@ module.exports = {
         }
       }},
 
-      {test: /\.scss/, loader: 'style!css!autoprefixer-loader?{browsers:["last 3 versions", "Firefox ESR"]}!sass'}
+      {test: /\.scss$/, loader: 'style!css!autoprefixer-loader?{browsers:["last 3 versions", "Firefox ESR"]}!sass'}
     ]
   },
 
@@ -54,26 +59,33 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new OccurenceOrderPlugin(),
+    new HotModuleReplacementPlugin(),
+    new NoErrorsPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       hash: true,
       inject: 'body',
-      template: 'src/index.html'
+      template: './src/index.html'
     })
   ],
 
-  stats: {
-    cached: true,
-    cachedAssets: true,
-    chunks: true,
-    chunkModules: false,
-    colors: true,
-    hash: false,
-    reasons: true,
-    timings: true,
-    version: false
+  devServer: {
+    contentBase: './src',
+    historyApiFallback: true,
+    inline: true,
+    port: 3000,
+    publicPath: '/',
+    stats: {
+      cached: true,
+      cachedAssets: true,
+      chunks: true,
+      chunkModules: false,
+      colors: true,
+      hash: false,
+      reasons: true,
+      timings: true,
+      version: false
+    }
   }
 };
