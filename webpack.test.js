@@ -5,6 +5,10 @@ const webpack = require('webpack');
 module.exports = {
   devtool: 'inline-source-map',
 
+  externals: {
+    firebase: 'MockFirebase'
+  },
+
   resolve: {
     alias: {
       test: path.resolve('./test')

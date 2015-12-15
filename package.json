@@ -54,6 +54,7 @@
     "karma-webpack": "~1.7.0",
     "minx": "~0.4.14",
     "mocha": "~2.3.4",
+    "mockfirebase": "~0.12.0",
     "node-sass": "~3.4.2",
     "react-addons-test-utils": "~0.14.3",
     "react-dom": "~0.14.3",

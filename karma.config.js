@@ -1,28 +1,25 @@
-module.exports = function(config) {
+module.exports = (config) => {
   config.set({
     frameworks: ['mocha'],
 
     files: [
       'node_modules/sinon/pkg/sinon.js',
-      'test/lib/mockfirebase.js',
-      'webpack.test.js'
+      'node_modules/mockfirebase/browser/mockfirebase.js',
+      'karma.entry.js'
     ],
 
     preprocessors: {
-      'webpack.test.js': ['webpack', 'sourcemap']
+      'karma.entry.js': ['webpack', 'sourcemap']
     },
 
-    // webpack config
     webpack: require('./webpack.test'),
 
-    // webpack server config
     webpackServer: {
       noInfo: true
     },
 
     reporters: ['mocha'],
 
-    // options for karma-mocha-reporter
     mochaReporter: {
       colors: {
         error: 'red',
