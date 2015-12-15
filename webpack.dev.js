@@ -36,16 +36,15 @@ module.exports = {
   module: {
     loaders: [
       {test: /\.js$/, exclude: /node_modules/, loader: 'babel', query: {
-        plugins: ['react-transform'],
-        extra: {
-          'react-transform': {
+        plugins: [
+          ['react-transform', {
             transforms: [{
               transform: 'react-transform-hmr',
               imports: ['react'],
               locals: ['module']
             }]
-          }
-        }
+          }]
+        ]
       }},
 
       {test: /\.scss$/, loader: 'style!css!autoprefixer-loader?{browsers:["last 3 versions", "Firefox ESR"]}!sass'}

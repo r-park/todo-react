@@ -50,6 +50,12 @@ module.exports = {
     ]
   },
 
+  sassLoader: {
+    outputStyle: 'compressed',
+    precision: 10,
+    sourceComments: false
+  },
+
   plugins: [
     new ExtractTextPlugin('styles.css'),
     new OccurenceOrderPlugin(),

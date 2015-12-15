@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { auth } from 'core/auth';
 
-
-@auth()
+// @auth()
 export class App extends Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
@@ -43,3 +42,6 @@ export class App extends Component {
     );
   }
 }
+
+// workaround until babel 6 supports decorators
+export default auth()(App);
